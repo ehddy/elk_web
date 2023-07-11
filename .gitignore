@@ -1,0 +1,12 @@
+.idea
+pybo.db
+*.pyc
+__pycache__
+migrations
+config
+elk
+*.txt
+*.html
+*.csv
+*.xlsx
+*.yaml
