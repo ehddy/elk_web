@@ -6,7 +6,6 @@ migrations
 config
 elk
 *.txt
-*.html
 *.csv
 *.xlsx
 *.yaml
