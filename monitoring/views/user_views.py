@@ -7,9 +7,21 @@ from monitoring.views.auth_views import login_required
 from monitoring.forms import UserSearchId
 # from elk.segment import * 
 # from pybo.models import Question
-
+from elk.segment import *
 # main_views가 인수로 전달, 첫 번째 인수 main은 블루프린트의 별칭
 bp = Blueprint('user', __name__, url_prefix='/user')
+
+
+@bp.route('/mainboard/')
+@login_required
+def mainboard():
+
+    
+
+    return render_template('mainboard.html')
+
+
+    
 
 
 @bp.route('/search/', methods=('GET', 'POST'))
@@ -19,13 +31,18 @@ def search():
     if request.method == "POST" and form.validate_on_submit():
         
         userid = form.userid.data
-        return userid
+
+        fig = get_device_id_dash(userid)
+        
+        graphJSON = fig.to_json()
+
+        return render_template('user/describe_plot.html',  graphJSON=graphJSON)
 
     
     # flash(error)
     # current_app.logger.info("info")
     # return redirect(url_for('question._list'))
-    return render_template('user_search.html', form=form)
+    return render_template('search_form.html', form=form)
 
 
     

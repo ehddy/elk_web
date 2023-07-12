@@ -21,7 +21,7 @@ def index():
 def home():
     # current_app.logger.info("info")
     # return redirect(url_for('question._list'))
-    return redirect(url_for('user.search'))
+    return redirect(url_for('user.mainboard'))
 
     
 

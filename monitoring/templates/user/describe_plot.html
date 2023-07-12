@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Plotly Integration</title>
+</head>
+<body>
+    <h1>Plotly Bar Chart</h1>
+    <div id="graph"></div>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        // Flask에서 전달한 그래프 데이터 가져오기
+        var graphJSON = {{ graphJSON|safe }};
+
+        // 그래프 표시
+        Plotly.plot('graph', graphJSON);
+    </script>
+</body>
+</html>
