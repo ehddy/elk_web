@@ -7,7 +7,7 @@ from monitoring.views.auth_views import login_required
 from monitoring.forms import UserSearchId
 # from elk.segment import * 
 # from pybo.models import Question
-from elk.segment import *
+from elk.elk_program import *
 # main_views가 인수로 전달, 첫 번째 인수 main은 블루프린트의 별칭
 bp = Blueprint('user', __name__, url_prefix='/user')
 
@@ -15,12 +15,13 @@ bp = Blueprint('user', __name__, url_prefix='/user')
 @bp.route('/mainboard/')
 @login_required
 def mainboard():
-
-    
-
     return render_template('mainboard.html')
 
 
+@bp.route('/abnormaly_board/')
+@login_required
+def abnormaly_board():
+    return render_template('abnormaly_user_board.html')
     
 
 
@@ -31,8 +32,8 @@ def search():
     if request.method == "POST" and form.validate_on_submit():
         
         userid = form.userid.data
-
-        fig = get_device_id_dash(userid)
+        dash = Modeling()
+        fig = dash.get_device_id_dash(userid)
         
         graphJSON = fig.to_json()
 

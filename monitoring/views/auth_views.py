@@ -21,10 +21,9 @@ def login():
     if request.method == "POST" and form.validate_on_submit():
         error = None
         user = User.query.filter_by(username=form.username.data).first()
-        password = User.query.filter_by(password=form.password.data).first()
         if not user:
             error = "Non-existent user"
-        elif not password:
+        elif not check_password_hash(user.password, form.password.data):
             error = "Incorrect password"
 
         if error is None:

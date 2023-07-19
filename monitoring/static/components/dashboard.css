@@ -1,0 +1,12 @@
+
+.dashboard {
+    height: 100vh;
+
+}
+
+.dashboard-frame {
+    border-radius: 20px;
+    width: 95vw; 
+    height: 90vh; 
+    margin: 0 10px;
+}

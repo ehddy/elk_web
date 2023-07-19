@@ -1,0 +1,54 @@
+/* Custom styles for the navigation bar */
+.navbar {
+    /* border-radius: 0px 0px 15px 15px; */
+    backdrop-filter: blur(2px);
+    opacity: 0.9;
+    /* Remove the "border-bottom" style from here */
+}
+
+/* Add the new custom class for the bottom border color */
+.border-bottom-custom {
+    border-bottom: 1px solid gray; /* Replace "your_color_here" with your desired color */
+}
+
+.navbar-light .navbar-toggler-icon {
+    /* Customize the color of the navbar toggler icon */
+    background-color: grey;
+    /* border: 1px solid #dee2e6; */
+}
+
+.sub-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1s ease-in-out; /* Adjust the duration as needed */
+}
+
+.show-sub-menu {
+    max-height: 1000px; 
+    transition: max-height 1s ease-in-out; /*/* Adjust the value as needed for the maximum height of the sub-menu */
+}
+.sub-menu li a{
+    text-decoration : None;
+    color: white;
+}
+
+.sub-menu li {
+    margin-top: 10px;
+}
+
+.sub-menu li a:hover {
+    color: skyblue;
+    /* font-weight: bold; */
+}
+
+/* Customize the link colors in the navigation bar */
+.navbar-nav .nav-link {
+    color: #fff; 
+    font-size: 18px;
+    margin: 0 20px; /* Change this to your desired link color */
+}
+
+.navbar-nav .nav-link:hover {
+    color: skyblue;
+    font-weight: bold; /* Change this to your desired link hover color */
+}

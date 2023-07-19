@@ -1,0 +1,20 @@
+
+/* Screens */
+@import "/static/screens/login.css";
+@import "/static/components/navi.css";
+@import "/static/components/dashboard.css";
+
+body {
+    background-image: url("/static/back_ground.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: sans-serif;
+}
+
+.company-logo {
+        margin-right: 10px; /* Add margin to the right side of the logo */
+        margin-left: 20px; /* Add margin to the left side of the logo */
+        margin-top: 20px;
+        margin-bottom: 10px;
+}

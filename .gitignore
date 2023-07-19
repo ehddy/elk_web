@@ -9,3 +9,6 @@ train_models
 *.csv
 *.xlsx
 *.yaml
+logs
+*.png
+*.jpg
