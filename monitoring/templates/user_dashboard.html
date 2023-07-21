@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="container search_form">
+
+        <h5 class="my-3">
+            Summary Dashboard of the connection status for the last hour
+        </h5>
+
+        {% if not graph_gage %}
+        <form class="search_from_box" method="post">
+            {{ form.csrf_token }}
+            {% include "form_errors.html" %}
+            <div class="mb-3">
+                <label class="mb-3" for="userid">Please enter the User ID</label>
+                <input type="text" class="form-control form-control-sm" placeholder="User ID" name="userid" id="userid"
+                    value="{{ form.userid.data or '' }}">
+
+            </div>
+            <button type="submit" class="btn btn-primary custom-btn btn-outline-success my-sm-0">Search</button>
+        </form>
+        {% endif %}
+
+    </div>
+
+    {% if graph_gage %}
+    <div class="user_dashboard row justify-content-center align-items-center">
+    <div id="graph_gage" class="gage"></div>
+    <div id="graph_ip_host" class="ip_host"></div>
+    <div id="graph_seasonal" class="seasonal"></div>
+    <div id="graph_ua_port" class="graph_ua_port"></div>
+    </div>
+
+    <div class="row justify-content-center mt-3 retry_form">
+        <button class="btn btn-primary btn-sm custom-retry_button" onclick="navigateToURL()">Go back</button>
+    </div>
+  
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        // Flask에서 전달한 그래프 데이터 가져오기
+        var graph_gage = {{ graph_gage|safe }};
+        var graph_ip_host = {{ graph_ip_host|safe }};
+        var graph_seasonal = {{ graph_seasonal|safe }};
+        var graph_ua_port = {{ graph_ua_port|safe }};
+        // 그래프 표시
+        Plotly.plot('graph_gage', graph_gage);
+        // 그래프 표시
+        Plotly.plot('graph_ip_host', graph_ip_host);
+
+        Plotly.plot('graph_seasonal', graph_seasonal);
+
+        Plotly.plot('graph_ua_port', graph_ua_port);
+        //       // 그래프 표시
+        // Plotly.plot('graph3', graphJSON);
+
+        // Plotly.plot('graph4', graphJSON);
+
+        // Plotly.plot('graph5', graphJSON);
+
+        function navigateToURL(url) {
+            // Perform the navigation here
+            window.location.href = "{{ url_for('user.user_dashboard') }}";
+        }
+        
+    </script>
+     {% endif %}
+    <script>
+        let click_g = true; // Use 'let' instead of 'const'
+
+        const search_form = document.querySelector('.search_from_box');
+        const button = document.querySelector('.btn-primary');
+        const loading_screen = document.querySelector('.loading-screen');
+
+        button.addEventListener('click', () => {
+            if (click_g) {
+                search_form.classList.add('show_look');
+                click_g = false;
+            } else {
+                subMenu.classList.remove('show-sub-menu');
+                click_g = true;
+            }
+        });
+    </script>
+
+{% endblock %}

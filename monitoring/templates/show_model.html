@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="container search_form">
+        <h5 class="my-3">
+            Use M
+        </h5>
+        
+        <div>
+        {% if not data_return %}
+        <form class="search_from_box" metho="post">
+            {{ form.csrf_token }}
+            {% include "form_errors.html" %}
+            <div class="mb-3">
+                <label class="mb-3" for="userid">Please enter the User ID</label>
+                <input type="text" class="form-control form-control-sm" placeholder="User ID" name="userid" id="userid"
+                    value="{{ form.userid.data or '' }}">
+            </div>
+            <button type="submit" class="btn btn-primary custom-btn btn-outline-success my-sm-0">Search</button>
+        </form>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if data_return %}
+    <h1>return</h1>
+    {% endif %}
+
+    <script>
+        let click_g = true; // Use 'let' instead of 'const'
+
+        const search_form = document.querySelector('.search_from_box');
+        const button = document.querySelector('.btn-primary');
+        const loading_screen = document.querySelector('.loading-screen');
+
+        button.addEventListener('click', () => {
+            if (click_g) {
+                search_form.classList.add('show_look');
+               
+                click_g = false;
+            } else {
+                subMenu.classList.remove('show-sub-menu');
+                click_g = true;
+            }
+        });
+    </script>
+
+{% endblock %}

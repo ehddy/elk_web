@@ -1,12 +1,37 @@
 
-.dashboard {
+/* .dashboard {
     height: 100vh;
 
-}
+} */
 
 .dashboard-frame {
     border-radius: 20px;
     width: 95vw; 
     height: 90vh; 
-    margin: 0 10px;
+    /* margin: 0px 10px; */
+    padding: 15px 15px;
+}
+
+.user_dashboard {
+    background-color: white;
+    border-radius: 15px;
+    margin-left: 50px;
+    z-index: 10; /* Adjust the z-index value as needed */
+    margin-right: 50px;
+    max-height: 735px; /* Adjust this value as needed for the desired maximum height */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+
+.gage {
+    border-radius: 20px;
+    height: 430px;
+    width: 1800px;
+}
+
+.ip_host {
+    height: 400px;
+    width: 1500px;
 }

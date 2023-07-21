@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="container search_form">
+        <h5 class="my-3">
+            Connect Status Data for the last hour
+        </h5>
+
+        <div>
+        {% if not data_return %}
+        <form class="search_from_box" method="post">
+            {{ form.csrf_token }}
+            {% include "form_errors.html" %}
+            <div class="mb-3">
+                <label class="mb-3" for="userid">Please enter the User ID</label>
+                <input type="text" class="form-control form-control-sm" placeholder="User ID" name="userid" id="userid"
+                    value="{{ form.userid.data or '' }}">
+            </div>
+            <button type="submit" class="btn btn-primary custom-btn btn-outline-success my-sm-0">Search</button>
+        </form>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if data_return %}
+    <div class="describe_table row justify-content-center align-items-center table-responsive-sm mb-4">
+            <table class="table table-striped table-bordered table-sm table-hover">
+                <thead>
+                    <tr>
+                        {% for column in describe_data1.columns %}
+                            <th scope="col">{{ column }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for index, row in describe_data1.iterrows() %}
+                        <tr>
+                            {% for column in describe_data1.columns %}
+                                <td>{{ row[column] }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+     
+    </div>
+
+    <div class="describe_table row justify-content-center align-items-center table-responsive-sm mb-4">
+        <table class="table table-striped table-bordered table-sm table-hover">
+            <thead>
+                <tr>
+                    {% for column in describe_data2.columns %}
+                        <th scope="col">{{ column }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for index, row in describe_data2.iterrows() %}
+                    <tr>
+                        {% for column in describe_data2.columns %}
+                            <td>{{ row[column] }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+ 
+    </div>
+
+    <div class="ip_table row justify-content-center align-items-center table-responsive-sm">
+        <table class="table table-striped table-bordered table-sm table-hover">
+            <thead>
+                <tr>
+                    {% for column in ip_data.columns %}
+                        <th scope="col">{{ column }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for index, row in ip_data.iterrows() %}
+                    <tr>
+                        {% for column in ip_data.columns %}
+                            <td>{{ row[column] }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+ 
+    </div>
+
+    <div class="row justify-content-center mt-3 retry_form">
+        <button class="btn btn-primary btn-sm custom-retry_button" onclick="navigateToURL()">Go back</button>
+    </div>
+  
+
+    {% endif %}
+
+    <script>
+        let click_g = true; // Use 'let' instead of 'const'
+
+        const search_form = document.querySelector('.search_from_box');
+        const button = document.querySelector('.btn-primary');
+        const loading_screen = document.querySelector('.loading-screen');
+
+        button.addEventListener('click', () => {
+            if (click_g) {
+                search_form.classList.add('show_look');
+               
+                click_g = false;
+            } else {
+                subMenu.classList.remove('show-sub-menu');
+                click_g = true;
+            }
+        });
+
+
+    function navigateToURL(url) {
+            // Perform the navigation here
+            window.location.href = "{{ url_for('user.user_describe') }}";
+        }
+        
+    </script>
+
+{% endblock %}

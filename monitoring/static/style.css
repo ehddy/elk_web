@@ -1,15 +1,22 @@
 
 /* Screens */
 @import "/static/screens/login.css";
+
+
+/* Components */
 @import "/static/components/navi.css";
 @import "/static/components/dashboard.css";
+@import "/static/components/search_form.css";
+@import "/static/components/dataframe.css";
+@import "/static/components/describe_table.css";
 
 body {
     background-image: url("/static/back_ground.jpg");
-    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-attachment: fixed;
     font-family: sans-serif;
+    /* min-height: 100vh; */
 }
 
 .company-logo {
@@ -17,4 +24,4 @@ body {
         margin-left: 20px; /* Add margin to the left side of the logo */
         margin-top: 20px;
         margin-bottom: 10px;
-}
+} 

@@ -6,13 +6,13 @@
             <img src="{{ url_for('static', filename='main_icon.png') }}" alt="Company Logo">
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="{{ url_for('user.mainboard')}}">Main Dashboard</a>
                 </li>
                 
@@ -20,27 +20,20 @@
                     <a class="nav-link" href="{{ url_for('user.abnormaly_board') }}">Abnormal Users Dashboard</a>
                 </li>
                 
-                <li class="nav-item">
-                    <a class="nav-link toggle-link" data-menu="menu1" href="#">Search</a>
-                    <ul class="sub-menu" data-menu="menu1">
-                        <li><a href="{{ url_for('user.search') }}">User Dashboard</a></li>
-                        <li><a href="#">User Describe</a></li>
-                        <li><a href="#">User Data</a></li>
-
-
-                        <!-- Add more sub-menu items as needed -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Search
+                    </a>
+                    <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li><a class="dropdown-item" href="{{ url_for('user.user_dashboard') }}">User Dashboard</a></li>
+                      <li><a class="dropdown-item" href="{{ url_for('user.user_describe') }}">User Status</a></li>
+                      <li><a class="dropdown-item" href="{{ url_for('user.user_data') }}">User Data</a></li>
                     </ul>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('model.show_model') }}">Use Models</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link toggle-link" data-menu="menu2" href="#">Use Model</a>
-                    <ul class="sub-menu" data-menu="menu2">
-                        <li><a href="{{ url_for('user.search') }}">User Dashboard</a></li>
-                        <li><a href="#">User Describe</a></li>
-                        <li><a href="#">User Data</a></li>
-                    </ul>
-                </li>
-       
-                
                 <li class="nav-item ">
                     <a class="nav-link" href="{{ url_for('auth.logout') }}">{{ g.user.username }} (Logout)</a>
                 </li>
@@ -48,20 +41,5 @@
         </div>
     </div>
 </nav>
-<script>
-    let click_g = true; // Use 'let' instead of 'const'
 
-    const toggleLink = document.querySelector('.toggle-link');
-    const subMenu = document.querySelector('.sub-menu');
-
-    toggleLink.addEventListener('click', () => {
-        if (click_g) {
-            subMenu.classList.add('show-sub-menu');
-            click_g = false;
-        } else {
-            subMenu.classList.remove('show-sub-menu');
-            click_g = true;
-        }
-    });
-</script>
 {% endif %}

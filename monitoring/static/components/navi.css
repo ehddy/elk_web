@@ -23,6 +23,8 @@
     transition: max-height 1s ease-in-out; /* Adjust the duration as needed */
 }
 
+
+
 .show-sub-menu {
     max-height: 1000px; 
     transition: max-height 1s ease-in-out; /*/* Adjust the value as needed for the maximum height of the sub-menu */
@@ -51,4 +53,8 @@
 .navbar-nav .nav-link:hover {
     color: skyblue;
     font-weight: bold; /* Change this to your desired link hover color */
+}
+
+.custom-dropdown-menu {
+    z-index: 9999; /
 }
