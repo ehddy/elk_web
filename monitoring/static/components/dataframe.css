@@ -1,7 +1,8 @@
 /* style.css */
 .table-container {
     border-radius: 15px;
-    max-height: 720px; /* Adjust this value as needed for the desired fixed height */
+    max-height: 75vh;
+    /* Adjust this value as needed for the desired fixed height */
     overflow-y: auto;
     overflow-x: auto;
     margin: 0 auto;

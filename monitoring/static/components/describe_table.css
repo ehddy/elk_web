@@ -1,18 +1,24 @@
 .describe_table {
-    border-radius: 15px; /* Adjust this value as needed for the desired fixed height */
+    border-radius: 15px;
+    /* Adjust this value as needed for the desired fixed height */
     overflow-y: auto;
     text-align: center;
     overflow-x: auto;
-    
+
     margin: 0 auto;
 }
 
 .ip_table {
 
     border-radius: 15px;
-    max-height: 450px; /* Adjust this value as needed for the desired fixed height */
+    max-height: 37vh;
+    /* Adjust this value as needed for the desired fixed height */
     overflow-y: auto;
     overflow-x: auto;
     margin: 0 auto;
 
+}
+
+.show_hide {
+    display: none;
 }

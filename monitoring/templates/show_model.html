@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <div class="container search_form">
-        <h5 class="my-3">
-            Use M
-        </h5>
-        
-        <div>
+<div class="container search_form">
+    <h5 class="my-3">
+        Show Model Result
+    </h5>
+
+    <div>
         {% if not data_return %}
-        <form class="search_from_box" metho="post">
+        <form class="search_from_box" method="post">
             {{ form.csrf_token }}
             {% include "form_errors.html" %}
             <div class="mb-3">
@@ -18,31 +18,81 @@
             </div>
             <button type="submit" class="btn btn-primary custom-btn btn-outline-success my-sm-0">Search</button>
         </form>
-        </div>
-        {% endif %}
     </div>
-
-    {% if data_return %}
-    <h1>return</h1>
     {% endif %}
+</div>
 
-    <script>
-        let click_g = true; // Use 'let' instead of 'const'
+{% if data_return %}
+<div class="describe_table row justify-content-center align-items-center table-responsive-sm">
+    <table class="table table-striped table-bordered table-sm table-hover">
+        <thead>
+            <tr>
+                {% for column in df.columns %}
+                <th scope="col">{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, row in df.iterrows() %}
+            <tr>
+                {% for column in df.columns %}
+                <td>{{ row[column] }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="mt-3">
+    <form id="saveForm" method="post" action="{{ url_for('model.save_db') }}">
+        {{ form.csrf_token }}
+        <input type="hidden" name="data" value="{{ dec_data.to_json() }}">
+        <input type="hidden" name="df" value="{{ df.to_json() }}">
 
-        const search_form = document.querySelector('.search_from_box');
-        const button = document.querySelector('.btn-primary');
-        const loading_screen = document.querySelector('.loading-screen');
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-12 mb-2 mb-md-0 save_db_btn">
+                <button type="button" class="btn btn-sm btn-primary custom-btn w-100" onclick="showConfirmation()">Save
+                    Anomaly User DB</button>
+            </div>
+            <div class="col-md-6 col-12">
+                <button type="button" class="btn btn-primary btn-sm custom-btn w-100" onclick="navigateToURL()">Go
+                    back</button>
 
-        button.addEventListener('click', () => {
-            if (click_g) {
-                search_form.classList.add('show_look');
-               
-                click_g = false;
-            } else {
-                subMenu.classList.remove('show-sub-menu');
-                click_g = true;
-            }
-        });
-    </script>
+            </div>
+    </form>
+</div>
+{% endif %}
+
+<script>
+    function showConfirmation() {
+        if (confirm("Would you like to save this user to the abnomaly user DB")) {
+            // If the user confirms, submit the form
+            document.getElementById("saveForm").submit();
+        }
+    }
+    let click_g = true; // Use 'let' instead of 'const'
+
+    const search_form = document.querySelector('.search_from_box');
+    const button = document.querySelector('.btn-primary');
+    const loading_screen = document.querySelector('.loading-screen');
+
+    button.addEventListener('click', () => {
+        if (click_g) {
+            search_form.classList.add('show_look');
+
+            click_g = false;
+        } else {
+            subMenu.classList.remove('show-sub-menu');
+            click_g = true;
+        }
+    });
+
+
+
+    function navigateToURL(url) {
+        // Perform the navigation here
+        window.location.href = "{{ url_for('model.show_model') }}";
+    }
+</script>
 
 {% endblock %}

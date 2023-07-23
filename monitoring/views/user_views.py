@@ -33,30 +33,36 @@ def abnormaly_board():
 def user_dashboard():
     form = UserSearchId()
     graphJSON = False
+    graph_gage = False
+    graph_ip_host = False
+    graph_seasonal = False
+    graph_ua_port = False
+    
     if request.method == "POST" and form.validate_on_submit():
-        error = None
-        userid = form.userid.data
-        e = Elk()
-        v = Visualize()
-        # try:
-        data = e.get_sDevID_data(userid)
-        scaled_data = e.preprocessing_data(data)
-        describe_data = e.describe(scaled_data)
+        try:
+            error = None
+            userid = form.userid.data
+            e = Elk()
+            v = Visualize()
+            # try:
+            data = e.get_sDevID_data(userid)
+            scaled_data = e.preprocessing_data(data)
+            describe_data = e.describe(scaled_data)
 
-        fig_gage = v.get_dash_gage(describe_data)
-        fig_ip_host = v.get_dash_ipchart(scaled_data)
-        fig_seasonal = v.get_dash_seasonal(scaled_data)
-        fig_ua_port  = v.get_dash_ua_port(scaled_data)
+            fig_gage = v.get_dash_gage(describe_data)
+            fig_ip_host = v.get_dash_ipchart(scaled_data)
+            fig_seasonal = v.get_dash_seasonal(scaled_data)
+            fig_ua_port  = v.get_dash_ua_port(scaled_data)
 
-        graph_gage = fig_gage.to_json()
-        graph_ip_host = fig_ip_host.to_json()
-        graph_seasonal = fig_seasonal.to_json()
-        graph_ua_port = fig_ua_port.to_json()
+            graph_gage = fig_gage.to_json()
+            graph_ip_host = fig_ip_host.to_json()
+            graph_seasonal = fig_seasonal.to_json()
+            graph_ua_port = fig_ua_port.to_json()
+            
         
-        
-        # except:
-        #     error = "No exist User Id or logs"
-        #     flash(error)
+        except:
+            error = "No exist User Id or logs"
+            flash(error)
        
         return render_template('user_dashboard.html',  form=form, graph_gage=graph_gage, graph_ip_host=graph_ip_host, graph_seasonal=graph_seasonal, graph_ua_port=graph_ua_port)
 
