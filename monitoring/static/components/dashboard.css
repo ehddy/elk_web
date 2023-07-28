@@ -18,7 +18,7 @@
     z-index: 10;
     /* Adjust the z-index value as needed */
     margin-right: 50px;
-    max-height: 75vh;
+    max-height: 73vh;
     /* Adjust this value as needed for the desired maximum height */
     overflow-y: auto;
     overflow-x: hidden;
