@@ -6,7 +6,7 @@
 .dashboard-frame {
     border-radius: 20px;
     width: 95vw;
-    height: 90vh;
+    height: 87vh;
     /* margin: 0px 10px; */
     padding: 15px 15px;
 }
@@ -18,7 +18,7 @@
     z-index: 10;
     /* Adjust the z-index value as needed */
     margin-right: 50px;
-    max-height: 73vh;
+    max-height: 75vh;
     /* Adjust this value as needed for the desired maximum height */
     overflow-y: auto;
     overflow-x: hidden;
