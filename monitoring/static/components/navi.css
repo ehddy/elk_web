@@ -51,8 +51,7 @@
 }
 
 .navbar-nav .nav-link:hover {
-    color: skyblue;
-    font-weight: bold; /* Change this to your desired link hover color */
+    color: skyblue; /* Change this to your desired link hover color */
 }
 
 .custom-dropdown-menu {
