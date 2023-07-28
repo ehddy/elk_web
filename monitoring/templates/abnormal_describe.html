@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container search_form">
+    <h5 class="my-3">
+        Check Users and Delete from the Abnormal User DB
+    </h5>
+
+<div class="table-container row justify-content-center align-items-center table-responsive-sm">
+    <table class="main_table table table-striped table-bordered table-sm table-hover">
+            <thead>
+                <tr>
+                    <th scope="col"></th> {# 체크박스를 위한 빈 컬럼 추가 #}
+                    {% for column in data.columns %}
+                        <th scope="col">{{ column }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for index, row in data.iterrows() %}
+                    <tr>
+                        <td><input type="checkbox" name="row{{ index }}" onclick="toggleCheckbox('{{ row[data.columns[0]] }}')"></td> {# 체크 박스 #}
+                        {% for column in data.columns %}
+                            <td>{{ row[column] }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+</div>
+<div class="row justify-content-center mt-3 retry_form">
+    <button class="btn btn-primary btn-sm custom-retry_button" onclick="confirmDeleteRows()">Delete</button> {# 삭제 버튼 #}
+</div>
+</div>
+<script>
+    var selectedRows = [];
+
+    function toggleCheckbox(userId) {
+        if (selectedRows.includes(userId)) {
+            selectedRows = selectedRows.filter(item => item !== userId);
+        } else {
+            selectedRows.push(userId);
+        }
+    }
+
+    function deleteCheckedRows() {
+        if (selectedRows.length === 0) {
+            alert("Please select rows.");
+            return;
+        }
+
+        fetch('/manage/delete_rows', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(selectedRows)
+        })
+        .then(response => response.json())
+        .then(data => { 
+            if (data.message === '삭제') {
+                alert('Success! Selected Data in the abnormal user db has been deleted');
+
+                window.location.reload(); // 삭제가 완료되면 창을 새로고침
+
+            } else {
+                alert('Failed! Selected Data in the abnormal user db has not been deleted');
+            }
+        })
+        .catch(error => console.error('Error occurred:', error));
+    }
+
+    function confirmDeleteRows() {
+        if (selectedRows.length === 0) {
+            alert("Please select rows.");
+            return;
+        }
+
+        var confirmDelete = window.confirm("Are you sure you want to delete the selected user from the db?");
+        if (confirmDelete) {
+            deleteCheckedRows(); // 확인을 누른 경우에만 삭제를 수행
+        }
+    }
+</script>
+
+{% endblock %}

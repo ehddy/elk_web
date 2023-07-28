@@ -11,6 +11,7 @@ from monitoring.forms import UserSearchId
 from elk.elk_program import *
 
 import openpyxl
+import pytz
 # main_views가 인수로 전달, 첫 번째 인수 main은 블루프린트의 별칭
 bp = Blueprint('model', __name__, url_prefix='/model')
 
@@ -38,21 +39,24 @@ def show_model():
 
             label_list = ["정상"]
             outlier_count = 0
-        
 
-            if dec_data["차단 수"].values >= 10 or dec_data["차단율(%)"].values >= 50:
-                label_list[0] = '비정상'
-                outlier_count = 1
+            if  dec_data['접속 시간(분)'].values <= 30 or dec_data['평균 접속 수(1분)'].values <= 1 or dec_data['최다 접속 URL'].values == 'gms.ahnlab.com' or 'steam' in dec_data['최다 접속 URL'].values:
+                label_list[0] = '정상'
 
-            
-            if dec_data["평균 접속 수(1분)"].values >= 100 and dec_data["최다 이용 UA 접속 비율(%)"].values >= 95 and dec_data["최대 빈도 URL 접속 비율(%)"].values >= 95:
-                label_list[0] = '비정상'
-                outlier_count = 1
+            else:
+                if dec_data["차단 수"].values >= 10 or dec_data["차단율(%)"].values >= 50:
+                    label_list[0] = '비정상'
+                    outlier_count = 1
 
-            
-            if dec_data["최다 접속 URL"].values == "123.57.193.95" or dec_data["최다 접속 URL"].values == "123.57.193.52":
-                label_list[0] = '비정상'
-                outlier_count = 1
+                
+                if dec_data["평균 접속 수(1분)"].values >= 100 and dec_data["최다 이용 UA 접속 비율(%)"].values >= 95 and dec_data["최대 빈도 URL 접속 비율(%)"].values >= 95:
+                    label_list[0] = '비정상'
+                    outlier_count = 1
+
+                
+                if dec_data["최다 접속 URL"].values == "123.57.193.95" or dec_data["최다 접속 URL"].values == "123.57.193.52":
+                    label_list[0] = '비정상'
+                    outlier_count = 1
 
             if kmeans_label == kmeans_outlier_k:
                 outlier_count += 1
@@ -88,7 +92,7 @@ def show_model():
 
             label_list.append(outlier_count)
 
-            custom_column_names = ['Rule-based', 'K-Means', 'Random Forest', 'Gaussian Mixture', 'Isolation Forest', 'LOF','Anomaly Detection Count']
+            custom_column_names = ['Rule-based', 'K-Means', 'DBSCAN', 'Gaussian Mixture', 'Isolation Forest', 'LOF','Anomaly Detection Count']
 
             # Creating a DataFrame with custom column names
             label_data = {custom_column_names[i]: [label_list[i]] for i in range(len(label_list))}
@@ -110,7 +114,22 @@ def save_db():
     return_df = request.form['df']
 
     dec_data = pd.read_json(return_data)
+      
+    # 현재 시간 구하기
+    now = datetime.now()
+
+    # 한국 시간대로 변환
+    korea_timezone = pytz.timezone("Asia/Seoul")
+    korea_time = now.astimezone(korea_timezone)
+
+    dec_data['timestamp'] =  korea_time 
     df = pd.read_json(return_df)
+
+    df['판별 등급'] = '위험'
+    df["판별 요인"] = 'Administrator Select'
+
+    dec_data['판별 등급'] = '위험'
+    dec_data["판별 요인"] = 'Administrator Select'
     e = Elk()
 
     e.save_db_data(dec_data, "abnormal_describe")   

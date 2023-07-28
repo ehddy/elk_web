@@ -1,7 +1,7 @@
 /* Custom styles for the navigation bar */
 .navbar {
     /* border-radius: 0px 0px 15px 15px; */
-    backdrop-filter: blur(2px);
+    /* backdrop-filter: blur(2px); */
     opacity: 0.9;
     /* Remove the "border-bottom" style from here */
 }
@@ -57,4 +57,10 @@
 
 .custom-dropdown-menu {
     z-index: 9999; /
+}
+
+.nav_logo {
+    height: 60px;
+    width: 130px;
+    opacity: 80%;
 }

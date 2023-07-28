@@ -25,6 +25,11 @@ def mainboard():
 @login_required
 def abnormaly_board():
     return render_template('abnormaly_user_board.html')
+
+@bp.route('/blocked_board/')
+@login_required
+def blocked_board():
+    return render_template('blocked_user_board.html')
     
 
 

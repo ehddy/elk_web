@@ -8,6 +8,7 @@
 @import "/static/components/search_form.css";
 @import "/static/components/dataframe.css";
 @import "/static/components/describe_table.css";
+@import "/static/components/table.css";
 
 body {
     background-image: url("/static/back_ground.jpg");

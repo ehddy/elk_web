@@ -13,11 +13,12 @@ def create_app():
     migrate.init_app(app, db)
     from . import models 
 
-    from .views import main_views, auth_views, user_views, model_views
+    from .views import main_views, auth_views, user_views, model_views, manage_views
     app.register_blueprint(main_views.bp)
     app.register_blueprint(auth_views.bp)
     app.register_blueprint(user_views.bp)
     app.register_blueprint(model_views.bp)
+    app.register_blueprint(manage_views.bp)
     
     # 필터 
     # from .filter import format_datetime
