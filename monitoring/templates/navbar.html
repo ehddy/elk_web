@@ -12,15 +12,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('user.mainboard')}}">Main Dashboard</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('user.blocked_board')}}">Blocked Users Dashboard</a>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('user.abnormaly_board') }}">Abnormal Users Dashboard</a>
+        
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dashboard
+                  </a>
+                  <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="{{ url_for('user.mainboard') }}">Main Dashboard</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('user.blocked_board') }}">Blocked Users Dashboard</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('user.abnormaly_board') }}">Abnormal Users Dashboard</a></li>
+                  </ul>
                 </li>
                 
                 <li class="nav-item dropdown">
