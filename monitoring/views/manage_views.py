@@ -20,9 +20,12 @@ bp = Blueprint('manage', __name__, url_prefix='/manage')
 @login_required
 def show_abnormal():
     e = Elk()
-    data = e.get_abnormal_data_show()
-    return render_template('abnormal_describe.html', data=data)
+    try:
+        data = e.get_abnormal_data_show()
+    except:
+        data = pd.DataFrame(data={}, columns=['가입자 ID', '비정상 판별 횟수','판별 등급', '판별 요인', '평균 접속 수(1분)', '차단율(%)','최다 접속 URL', '최다 접속 IP 위치', '접속 기간'])
 
+    return render_template('abnormal_describe.html', data=data)
 
 @bp.route('/delete_rows', methods=['POST']) # 경로를 '/delete_rows'가 아닌 '/manage/delete_rows'로 수정
 @login_required
