@@ -2,7 +2,5 @@
 cd /home/elk_web/
 source elk_web.sh
 flask migrate db init
-flaks migrate db migrate
-systemctl start elk_web.service
-systemctl start nginx.service
+flask migrate db migrate
 tail -f /dev/null
