@@ -2,7 +2,7 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
-from .models import User  # 유저 모델을 가져와야 함
+from monitoring.models import User  # 유저 모델을 가져와야 함
 
 db = SQLAlchemy()
 migrate = Migrate()
