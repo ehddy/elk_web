@@ -23,5 +23,4 @@ RUN chmod +x /home/elk_web/elk_web.sh
 WORKDIR /home/elk_web/
 
 
-
-CMD ["/home/elk_web/start_service.sh"]
+CMD ["./start_service.sh"]
