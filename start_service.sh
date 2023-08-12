@@ -4,6 +4,7 @@ source elk_web.sh
 flask db init
 flask db migrate
 flask db upgrade
+python create_superuser.py
 systemctl start elk_web.service
 systemctl start nginx.service
 tail -f /dev/null
