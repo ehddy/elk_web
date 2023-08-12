@@ -2,7 +2,7 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
-from monitoring.models import User  # 유저 모델을 가져와야 함
+
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -15,6 +15,7 @@ def create_app():
     migrate.init_app(app, db)
 
     with app.app_context():
+        from monitoring.models import User  # 유저 모델을 가져와야 함
         # 체크하여 유저가 이미 존재하지 않으면 추가
         if not User.query.filter_by(username='planty').first():
             password = generate_password_hash("planty020117")
