@@ -17,6 +17,7 @@ RUN git clone https://github.com/ehddy/elk-log-analysis.git /home/elk_web/elk/
 # ENV APP_CONFIG_FILE=/home/elk_web/config/developement.py
 # 스크립트 파일에 실행 권한을 추가합니다.
 RUN chmod +x /home/elk_web/start_service.sh
+ENV FLASK_APP=monitoring
 
 RUN chmod +x /home/elk_web/elk_web.sh
 # /home/elk/ 디렉토리로 이동
