@@ -1,17 +1,28 @@
-from flask import Flask, render_template
+from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-# from flaskext.markdown import Markdown
+from werkzeug.security import generate_password_hash
+from .models import User  # 유저 모델을 가져와야 함
+
 db = SQLAlchemy()
 migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
     app.config.from_envvar('APP_CONFIG_FILE')
-    # # ORM
+    # ORM
     db.init_app(app)
     migrate.init_app(app, db)
-    from . import models 
+
+    with app.app_context():
+        # 체크하여 유저가 이미 존재하지 않으면 추가
+        if not User.query.filter_by(username='planty').first():
+            password = generate_password_hash("planty020117")
+            q = User(username='planty', password=password)
+            db.session.add(q)
+            db.session.commit()
+
+    from . import models
 
     from .views import main_views, auth_views, user_views, model_views, manage_views
     app.register_blueprint(main_views.bp)
