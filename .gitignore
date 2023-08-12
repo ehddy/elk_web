@@ -3,7 +3,6 @@ pybo.db
 *.pyc
 __pycache__
 migrations
-config
 elk
 train_models
 *.csv
