@@ -11,5 +11,4 @@ train_models
 logs
 *.png
 *.jpg
-*.txt
 .DS_Store
