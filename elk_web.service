@@ -1,0 +1,15 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/home/elk_web
+EnvironmentFile=/home/elk_web/elk_web.env
+ExecStart=/usr/local/bin/gunicorn \
+          --workers 2 \
+          --bind unix:/tmp/elk_web.sock \
+          "monitoring:create_app()"
+[Install]
+WantedBy=multi-user.target
