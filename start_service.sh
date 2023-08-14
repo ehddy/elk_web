@@ -6,5 +6,5 @@ flask db migrate
 flask db upgrade
 python create_superuser.py
 systemctl start elk_web.service
-systemctl start nginx.service
+systemctl restart nginx
 tail -f /dev/null
