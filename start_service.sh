@@ -1,6 +1,7 @@
 #!/bin/bash
 cd /home/elk_web/
 source elk_web.sh
+ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 flask db init
 flask db migrate
 flask db upgrade
